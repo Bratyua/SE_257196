@@ -19,6 +19,7 @@ class TestTrafficLight(unittest.TestCase):
         
         self.assertEqual(controller.ns_light, "Red")
         self.assertEqual(controller.ew_light, "Green")
+
     def test_third_tick_changes_ew_to_yellow(self):
         controller = TrafficLightController()
         controller.tick() 
@@ -27,5 +28,15 @@ class TestTrafficLight(unittest.TestCase):
         
         self.assertEqual(controller.ns_light, "Red")
         self.assertEqual(controller.ew_light, "Yellow")
+
+    def test_fourth_tick_completes_cycle(self):
+        controller = TrafficLightController()
+        controller.tick() 
+        controller.tick() 
+        controller.tick() 
+        controller.tick() 
+        
+        self.assertEqual(controller.ns_light, "Green")
+        self.assertEqual(controller.ew_light, "Red")
 if __name__ == '__main__':
     unittest.main()
