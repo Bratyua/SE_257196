@@ -4,4 +4,8 @@ class TrafficLightController:
         self.ew_light = "Red"
 
     def tick(self):
-        self.ns_light = "Yellow"
+        if self.ns_light == "Green":
+            self.ns_light = "Yellow"
+        elif self.ns_light == "Yellow":
+            self.ns_light = "Red"
+            self.ew_light = "Green"
