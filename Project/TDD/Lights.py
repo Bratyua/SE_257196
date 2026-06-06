@@ -9,3 +9,5 @@ class TrafficLightController:
         elif self.ns_light == "Yellow":
             self.ns_light = "Red"
             self.ew_light = "Green"
+        elif self.ew_light == "Green":
+            self.ew_light = "Yellow"
