@@ -1,0 +1,23 @@
+<mat-toolbar color="primary">
+    <span>ErasmoBoard</span>
+    <span class="spacer"></span>
+    
+    @if (roles().length > 0) {
+        <nav class="nav-links">
+            @if (roles().includes('ROLE_ADMIN')) {
+                <button mat-button routerLink="/admin" routerLinkActive="active-link">Admin Panel</button>
+            }
+            @if (roles().includes('ROLE_MODERATOR')) {
+                <button mat-button routerLink="/mod" routerLinkActive="active-link">Moderator Panel</button>
+            }
+            @if (roles().includes('ROLE_USER')) {
+                <button mat-button routerLink="/user" routerLinkActive="active-link">User Panel</button>
+            }
+        </nav>
+    }
+</mat-toolbar>
+
+<div class="main-container">
+    <h1 class="welcome-header">{{ displayTitle() }}</h1>
+    <router-outlet />
+</div>

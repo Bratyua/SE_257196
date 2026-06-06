@@ -1,0 +1,153 @@
+.admin-dashboard {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.account-card {
+    margin-bottom: 30px;
+    border-top: 4px solid #3f51b5;
+}
+
+.account-info {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.password-form {
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.form-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.tab-padding {
+    padding: 25px 0;
+}
+
+.admin-section {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.action-card {
+    border-radius: 12px;
+}
+
+.inline-form {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.stacked-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-row {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.form-row mat-form-field {
+    flex: 1;
+    min-width: 200px;
+}
+
+.list-container {
+    max-width: 600px;
+    background-color: #fff;
+    border-radius: 8px;
+}
+
+.uni-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.item-card {
+    transition: transform 0.2s;
+}
+
+.item-card:hover {
+    transform: translateY(-5px);
+}
+
+.id-tag {
+    font-size: 0.75rem;
+    color: #888;
+    margin-right: auto;
+    padding-left: 15px;
+}
+
+.admin-table {
+    width: 100%;
+}
+
+.role-chip {
+    background-color: #f0f2f5;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.user-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.tiny-select {
+    width: 150px;
+}
+
+.pwd-input {
+    width: 150px;
+}
+
+.you-badge {
+    font-size: 0.7rem;
+    background-color: #3f51b5;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 10px;
+    margin-left: 5px;
+}
+
+.empty-text {
+    color: #999;
+    font-style: italic;
+}
+
+.error-banner {
+    background-color: #ffebee;
+    color: #d32f2f;
+    padding: 15px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+::ng-deep .mat-mdc-form-field-subscript-wrapper {
+    display: none;
+}
+
+mat-card-header {
+    margin-bottom: 15px;
+}

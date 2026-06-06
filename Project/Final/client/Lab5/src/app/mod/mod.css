@@ -1,0 +1,141 @@
+.mod-dashboard {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.account-card {
+    margin-bottom: 30px;
+    border-top: 4px solid #ffc107;
+}
+
+.account-info {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.password-form {
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.form-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.tab-padding {
+    padding: 25px 0;
+}
+
+.mod-table {
+    width: 100%;
+}
+
+.table-select {
+    width: 100%;
+    font-size: 0.85rem;
+}
+
+.small-select {
+    width: 120px;
+}
+
+.ola-cell {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.current-ola {
+    font-size: 0.75rem;
+    color: #666;
+    font-weight: 500;
+}
+
+.status-cell {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.status-indicator {
+    font-size: 0.75rem;
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 4px;
+    background-color: #eee;
+}
+
+.status-indicator.SENT { background-color: #e3f2fd; color: #1976d2; }
+.status-indicator.SIGNED { background-color: #e8f5e9; color: #2e7d32; }
+.status-indicator.REJECTED { background-color: #ffebee; color: #d32f2f; }
+
+.formula-hint {
+    color: #666;
+    font-style: italic;
+    margin-bottom: 20px;
+}
+
+.points-cell {
+    font-weight: bold;
+    color: #3f51b5;
+    font-size: 1.1rem;
+}
+
+.small-input {
+    width: 100px;
+}
+
+.tiny-input {
+    width: 80px;
+}
+
+.you-badge {
+    font-size: 0.7rem;
+    background-color: #ffc107;
+    color: #000;
+    padding: 2px 6px;
+    border-radius: 10px;
+    margin-left: 5px;
+}
+
+.uni-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 25px;
+}
+
+.uni-card {
+    border-top: 3px solid #ffc107;
+}
+
+.ola-title {
+    margin: 15px 0 5px 0;
+    color: #555;
+}
+
+.empty-list {
+    padding: 10px;
+    font-style: italic;
+    color: #999;
+}
+
+.error-banner {
+    background-color: #ffebee;
+    color: #d32f2f;
+    padding: 15px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+::ng-deep .mat-mdc-form-field-subscript-wrapper {
+    display: none;
+}

@@ -1,0 +1,64 @@
+<div class="login-page">
+  <mat-card class="login-card mat-elevation-z8">
+    <mat-card-header>
+      <mat-card-title>Create ErasmoBoard Account</mat-card-title>
+      <mat-card-subtitle>Join the Erasmus community</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      @if (isSignedUp()) {
+        <div class="auth-section centered">
+          <mat-icon class="welcome-icon">task_alt</mat-icon>
+          <h3>Account Created!</h3>
+          <p>Your registration was successful. You can now log in.</p>
+          <button mat-raised-button color="primary" routerLink="/auth/login">
+            Go to Login
+          </button>
+        </div>
+      } @else {
+        <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate class="auth-form">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Username</mat-label>
+            <input matInput name="username" [(ngModel)]="form.username" required #usernameInput="ngModel">
+            <mat-icon matSuffix>person</mat-icon>
+            @if (f.submitted && usernameInput.errors?.['required']) {
+              <mat-error>Username is required</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Password</mat-label>
+            <input matInput type="password" name="password" [(ngModel)]="form.password" required #passwordInput="ngModel" minlength="6">
+            <mat-icon matSuffix>key</mat-icon>
+            @if (f.submitted && passwordInput.errors?.['required']) {
+              <mat-error>Password is required</mat-error>
+            }
+            @if (f.submitted && passwordInput.errors?.['minlength']) {
+              <mat-error>Password must be at least 6 characters</mat-error>
+            }
+          </mat-form-field>
+
+          @if (f.submitted && isSignUpFailed()) {
+            <div class="error-msg">
+              <mat-icon>error</mat-icon>
+              Registration failed: {{errorMessage()}}
+            </div>
+          }
+
+          <button mat-raised-button color="primary" type="submit" class="login-button">
+            Sign Up
+          </button>
+        </form>
+
+        <mat-divider></mat-divider>
+
+        <div class="signup-prompt">
+          <p>Already have an account?</p>
+          <button mat-stroked-button color="accent" routerLink="/auth/login">
+            Back to Login
+          </button>
+        </div>
+      }
+    </mat-card-content>
+  </mat-card>
+</div>

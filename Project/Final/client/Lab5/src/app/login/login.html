@@ -1,0 +1,91 @@
+<div class="login-page">
+  <mat-card class="login-card mat-elevation-z8">
+    <mat-card-header>
+      <mat-card-title>ErasmoBoard Login</mat-card-title>
+      <mat-card-subtitle>Access your Erasmus Dashboard</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      @if (isResetRequired()) {
+        <!-- Reset Password Form -->
+        <div class="auth-section">
+          <h3>Password Reset Required</h3>
+          <p>Please set a new password to secure your account.</p>
+          
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>New Password</mat-label>
+            <input matInput type="password" [(ngModel)]="newPassword" placeholder="Minimum 6 characters">
+            <mat-icon matSuffix>lock</mat-icon>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Confirm Password</mat-label>
+            <input matInput type="password" [(ngModel)]="confirmPassword">
+            <mat-icon matSuffix>verified_user</mat-icon>
+          </mat-form-field>
+
+          <div class="form-actions">
+            <button mat-raised-button color="primary" (click)="onChangePassword()">Update Password</button>
+          </div>
+        </div>
+      } @else if (isLoggedIn()) {
+        <!-- Already Logged In State -->
+        <div class="auth-section centered">
+          <mat-icon class="welcome-icon">check_circle</mat-icon>
+          <h3>Welcome back, {{ username() }}!</h3>
+          <p>You are currently authenticated.</p>
+          
+          <div class="dashboard-links">
+            <button mat-raised-button color="primary" (click)="redirectToPanel()">
+              Go to Dashboard
+            </button>
+            <button mat-button color="warn" (click)="tokenStorage.signOut(); reloadPage()">
+              Logout
+            </button>
+          </div>
+        </div>
+      } @else {
+        <!-- Standard Login Form -->
+        <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate class="auth-form">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Username</mat-label>
+            <input matInput name="username" [(ngModel)]="form.username" required #usernameInput="ngModel">
+            <mat-icon matSuffix>person</mat-icon>
+            @if (f.submitted && usernameInput.errors?.['required']) {
+              <mat-error>Username is required</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Password</mat-label>
+            <input matInput type="password" name="password" [(ngModel)]="form.password" required #passwordInput="ngModel">
+            <mat-icon matSuffix>key</mat-icon>
+            @if (f.submitted && passwordInput.errors?.['required']) {
+              <mat-error>Password is required</mat-error>
+            }
+          </mat-form-field>
+
+          @if (f.submitted && isLoginFailed()) {
+            <div class="error-msg">
+              <mat-icon>error</mat-icon>
+              Login failed: {{errorMessage()}}
+            </div>
+          }
+
+          <button mat-raised-button color="primary" type="submit" class="login-button">
+            Login
+          </button>
+        </form>
+
+        <mat-divider></mat-divider>
+
+        <div class="signup-prompt">
+          <p>Don't have an account yet?</p>
+          <button mat-stroked-button color="accent" routerLink="/signup">
+            Create an Account
+          </button>
+        </div>
+      }
+    </mat-card-content>
+  </mat-card>
+</div>

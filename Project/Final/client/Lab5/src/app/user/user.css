@@ -1,0 +1,227 @@
+.user-dashboard {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.account-card {
+    margin-bottom: 30px;
+    border-top: 4px solid #3f51b5;
+}
+
+.account-info {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.password-form {
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.form-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.tab-padding {
+    padding: 25px 0;
+}
+
+.summary-card {
+    max-width: 700px;
+    border-radius: 12px;
+}
+
+.profile-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 10px 0;
+}
+
+.profile-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.profile-item .label {
+    font-weight: 500;
+    color: #666;
+}
+
+.profile-item .value {
+    font-size: 1.1rem;
+}
+
+.profile-item.highlight {
+    padding: 10px;
+    background-color: #f0f2f5;
+    border-radius: 8px;
+}
+
+.points {
+    font-size: 1.5rem !important;
+    font-weight: bold;
+    color: #2e7d32;
+}
+
+.status {
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.status.SENT { color: #1976d2; }
+.status.SIGNED { color: #2e7d32; }
+.status.REJECTED { color: #d32f2f; }
+.status.PENDING { color: #ed6c02; }
+
+.directory-table {
+    width: 100%;
+}
+
+.you-badge {
+    font-size: 0.8rem;
+    background-color: #3f51b5;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 12px;
+    margin-left: 8px;
+}
+
+.status-chip {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 16px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    background-color: #eee;
+}
+
+.status-chip.SENT { background-color: #e3f2fd; color: #1976d2; }
+.status-chip.SIGNED { background-color: #e8f5e9; color: #2e7d32; }
+.status-chip.REJECTED { background-color: #ffebee; color: #d32f2f; }
+
+.calculator-container {
+    display: flex;
+    gap: 40px;
+    align-items: stretch;
+    flex-wrap: wrap;
+}
+
+.calc-form-card {
+    flex: 1;
+    min-width: 300px;
+}
+
+.calc-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.calc-button {
+    height: 50px;
+    font-size: 1.1rem;
+}
+
+.calc-result-area {
+    flex: 1;
+    min-width: 300px;
+    display: flex;
+}
+
+.result-card {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    background-color: #f1f8e9;
+    border: 2px solid #c5e1a5;
+}
+
+.result-label {
+    font-size: 1.2rem;
+    color: #555;
+}
+
+.result-value {
+    font-size: 5rem;
+    font-weight: 900;
+    color: #2e7d32;
+    margin: 20px 0;
+}
+
+.result-formula {
+    margin-top: 15px;
+    color: #777;
+    font-style: italic;
+}
+
+.calc-placeholder {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 2px dashed #ccc;
+    border-radius: 8px;
+    color: #999;
+}
+
+.calc-placeholder mat-icon {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+    margin-bottom: 15px;
+}
+
+.uni-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 25px;
+}
+
+.uni-card {
+    border-top: 3px solid #3f51b5;
+}
+
+.ola-title {
+    margin: 15px 0 10px 0;
+    color: #555;
+}
+
+.empty-list {
+    padding: 10px;
+    font-style: italic;
+    color: #999;
+}
+
+.loading-spinner {
+    padding: 40px;
+    text-align: center;
+    color: #666;
+}
+
+.error-banner {
+    background-color: #ffebee;
+    color: #d32f2f;
+    padding: 15px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+@media (max-width: 768px) {
+    .calculator-container {
+        flex-direction: column;
+    }
+}

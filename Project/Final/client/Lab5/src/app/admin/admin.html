@@ -1,0 +1,305 @@
+<div class="admin-dashboard">
+    <!-- Account Section -->
+    <mat-card class="account-card">
+        <mat-card-header>
+            <mat-card-title>
+                <mat-icon>admin_panel_settings</mat-icon>
+                {{ tokenStorage.getUsername() }}
+            </mat-card-title>
+            <mat-card-subtitle>Administrator Console</mat-card-subtitle>
+        </mat-card-header>
+        
+        <mat-card-content>
+            @if (isChangingPassword()) {
+                <div class="password-form">
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>New Password</mat-label>
+                        <input matInput type="password" [(ngModel)]="accountNewPassword">
+                    </mat-form-field>
+                    
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>Confirm Password</mat-label>
+                        <input matInput type="password" [(ngModel)]="accountConfirmPassword">
+                    </mat-form-field>
+
+                    <div class="form-actions">
+                        <button mat-raised-button color="accent" (click)="onChangePassword()">Update</button>
+                        <button mat-button (click)="cancelChangePassword()">Cancel</button>
+                    </div>
+                </div>
+            } @else {
+                <div class="account-info">
+                    <button mat-stroked-button (click)="startChangePassword()">
+                        <mat-icon>key</mat-icon> Change Password
+                    </button>
+                    <button mat-flat-button color="warn" (click)="logout()">
+                        <mat-icon>logout</mat-icon> Logout
+                    </button>
+                </div>
+            }
+        </mat-card-content>
+    </mat-card>
+
+    <div class="dashboard-content">
+        @if (errorMessage()) {
+            <div class="error-banner">
+                <mat-icon>error</mat-icon>
+                {{errorMessage()}}
+            </div>
+        }
+
+        <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" animationDuration="0ms">
+            <!-- Faculties Tab -->
+            <mat-tab label="Faculties">
+                <div class="tab-padding">
+                    <div class="admin-section">
+                        <mat-card class="action-card">
+                            <mat-card-header><mat-card-title>Add New Faculty</mat-card-title></mat-card-header>
+                            <mat-card-content>
+                                <div class="inline-form">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Faculty Name</mat-label>
+                                        <input matInput [(ngModel)]="facultyName" placeholder="e.g. Computer Science">
+                                    </mat-form-field>
+                                    <button mat-raised-button color="primary" (click)="addFaculty()">
+                                        <mat-icon>add</mat-icon> Add
+                                    </button>
+                                </div>
+                            </mat-card-content>
+                        </mat-card>
+
+                        <h3>Existing Faculties</h3>
+                        <mat-list class="mat-elevation-z1 list-container">
+                            @for (faculty of faculties(); track faculty.id) {
+                                <mat-list-item>
+                                    <mat-icon matListItemIcon>school</mat-icon>
+                                    <div matListItemTitle>{{ faculty.name }}</div>
+                                    <div matListItemLine>ID: {{ faculty.id }}</div>
+                                    <button mat-icon-button matListItemMeta color="warn" (click)="deleteFaculty(faculty.id)">
+                                        <mat-icon>delete</mat-icon>
+                                    </button>
+                                </mat-list-item>
+                                <mat-divider></mat-divider>
+                            } @empty {
+                                <mat-list-item>No faculties found.</mat-list-item>
+                            }
+                        </mat-list>
+                    </div>
+                </div>
+            </mat-tab>
+
+            <!-- Universities Tab -->
+            <mat-tab label="Universities">
+                <div class="tab-padding">
+                    <div class="admin-section">
+                        <mat-card class="action-card">
+                            <mat-card-header><mat-card-title>Add New University</mat-card-title></mat-card-header>
+                            <mat-card-content>
+                                <div class="stacked-form">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>University Name</mat-label>
+                                        <input matInput [(ngModel)]="uniName">
+                                    </mat-form-field>
+                                    <div class="form-row">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Country</mat-label>
+                                            <input matInput [(ngModel)]="uniCountry">
+                                        </mat-form-field>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>City</mat-label>
+                                            <input matInput [(ngModel)]="uniCity">
+                                        </mat-form-field>
+                                    </div>
+                                    <button mat-raised-button color="primary" (click)="addUniversity()">
+                                        <mat-icon>add_business</mat-icon> Add University
+                                    </button>
+                                </div>
+                            </mat-card-content>
+                        </mat-card>
+
+                        <h3>Existing Universities</h3>
+                        <div class="uni-grid">
+                            @for (uni of universities(); track uni.id) {
+                                <mat-card class="item-card mat-elevation-z1">
+                                    <mat-card-header>
+                                        <mat-card-title>{{ uni.name }}</mat-card-title>
+                                        <mat-card-subtitle>{{ uni.city }}, {{ uni.country }}</mat-card-subtitle>
+                                    </mat-card-header>
+                                    <mat-card-actions align="end">
+                                        <span class="id-tag">ID: {{ uni.id }}</span>
+                                        <button mat-icon-button color="warn" (click)="deleteUniversity(uni.id)">
+                                            <mat-icon>delete</mat-icon>
+                                        </button>
+                                    </mat-card-actions>
+                                </mat-card>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </mat-tab>
+
+            <!-- Users Tab -->
+            <mat-tab label="User Management">
+                <div class="tab-padding">
+                    <div class="admin-section">
+                        <mat-card class="action-card">
+                            <mat-card-header><mat-card-title>Create System Account</mat-card-title></mat-card-header>
+                            <mat-card-content>
+                                <div class="form-row">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Username</mat-label>
+                                        <input matInput [(ngModel)]="newUsername">
+                                    </mat-form-field>
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Initial Password</mat-label>
+                                        <input matInput type="password" [(ngModel)]="newPassword">
+                                    </mat-form-field>
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Role</mat-label>
+                                        <mat-select [(ngModel)]="newRole">
+                                            <mat-option value="ROLE_USER">User</mat-option>
+                                            <mat-option value="ROLE_MODERATOR">Moderator</mat-option>
+                                            <mat-option value="ROLE_ADMIN">Admin</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                                <button mat-raised-button color="primary" (click)="addUser()">
+                                    <mat-icon>person_add</mat-icon> Create User
+                                </button>
+                            </mat-card-content>
+                        </mat-card>
+
+                        <h3>System Users</h3>
+                        <table mat-table [dataSource]="users()" class="mat-elevation-z1 admin-table">
+                            <ng-container matColumnDef="id">
+                                <th mat-header-cell *matHeaderCellDef>ID</th>
+                                <td mat-cell *matCellDef="let user">{{ user.id }}</td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="username">
+                                <th mat-header-cell *matHeaderCellDef>Username</th>
+                                <td mat-cell *matCellDef="let user">
+                                    <strong>{{ user.username }}</strong>
+                                    @if (user.username === tokenStorage.getUsername()) {
+                                        <span class="you-badge">(You)</span>
+                                    }
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="roles">
+                                <th mat-header-cell *matHeaderCellDef>Roles</th>
+                                <td mat-cell *matCellDef="let user">
+                                    <span class="role-chip">{{ getRolesString(user) }}</span>
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="actions">
+                                <th mat-header-cell *matHeaderCellDef>Actions</th>
+                                <td mat-cell *matCellDef="let user">
+                                    <div class="user-actions">
+                                        <mat-form-field appearance="fill" class="tiny-select">
+                                            <mat-select #roleSelect (selectionChange)="updateUserRole(user, roleSelect.value)" 
+                                                        [disabled]="user.username === tokenStorage.getUsername()"
+                                                        placeholder="Change Role">
+                                                <mat-option value="ROLE_USER">User</mat-option>
+                                                <mat-option value="ROLE_MODERATOR">Moderator</mat-option>
+                                                <mat-option value="ROLE_ADMIN">Admin</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                        
+                                        <mat-form-field appearance="outline" class="pwd-input">
+                                            <mat-label>New Temp Pwd</mat-label>
+                                            <input matInput [ngModel]="userPasswords()[user.id] || ''" 
+                                                   (ngModelChange)="updateTempPwd(user.id, $event)">
+                                        </mat-form-field>
+                                        
+                                        <button mat-stroked-button color="warn" (click)="resetUserPassword(user.id)">
+                                            Reset
+                                        </button>
+                                    </div>
+                                </td>
+                            </ng-container>
+
+                            <tr mat-header-row *matHeaderRowDef="['id', 'username', 'roles', 'actions']"></tr>
+                            <tr mat-row *matRowDef="let row; columns: ['id', 'username', 'roles', 'actions'];"
+                                [style.background-color]="row.username === tokenStorage.getUsername() ? 'rgba(63, 81, 181, 0.05)' : 'transparent'">
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </mat-tab>
+
+            <!-- OLA Tab -->
+            <mat-tab label="OLA Agreements">
+                <div class="tab-padding">
+                    <div class="admin-section">
+                        <mat-card class="action-card">
+                            <mat-card-header><mat-card-title>Create OLA Agreement</mat-card-title></mat-card-header>
+                            <mat-card-content>
+                                <div class="form-row">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>OLA Number</mat-label>
+                                        <input matInput type="number" [(ngModel)]="newOlaNo">
+                                    </mat-form-field>
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Agreement Name</mat-label>
+                                        <input matInput [(ngModel)]="newOlaName">
+                                    </mat-form-field>
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Target University</mat-label>
+                                        <mat-select [(ngModel)]="selectedDestUniId">
+                                            @for (uni of universities(); track uni.id) {
+                                                <mat-option [value]="uni.id">{{ uni.name }} ({{ uni.city }})</mat-option>
+                                            }
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                                <button mat-raised-button color="primary" (click)="addOlaAgreement()">
+                                    <mat-icon>description</mat-icon> Register OLA
+                                </button>
+                            </mat-card-content>
+                        </mat-card>
+
+                        <h3>Registered OLA Agreements</h3>
+                        <table mat-table [dataSource]="olaAgreements()" class="mat-elevation-z1 admin-table">
+                            <ng-container matColumnDef="no">
+                                <th mat-header-cell *matHeaderCellDef>OLA No</th>
+                                <td mat-cell *matCellDef="let ola">{{ ola.olaNo }}</td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="name">
+                                <th mat-header-cell *matHeaderCellDef>Name</th>
+                                <td mat-cell *matCellDef="let ola"><strong>{{ ola.name }}</strong></td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="unis">
+                                <th mat-header-cell *matHeaderCellDef>Linked Universities</th>
+                                <td mat-cell *matCellDef="let ola">
+                                    <mat-chip-set>
+                                        @for (uni of ola.destUnis; track uni.id) {
+                                            <mat-chip>{{ uni.name }}</mat-chip>
+                                        } @empty {
+                                            <span class="empty-text">None</span>
+                                        }
+                                    </mat-chip-set>
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="actions">
+                                <th mat-header-cell *matHeaderCellDef>Actions</th>
+                                <td mat-cell *matCellDef="let ola">
+                                    <button mat-icon-button color="warn" (click)="deleteOlaAgreement(ola.olaNo)">
+                                        <mat-icon>delete</mat-icon>
+                                    </button>
+                                </td>
+                            </ng-container>
+
+                            <tr mat-header-row *matHeaderRowDef="['no', 'name', 'unis', 'actions']"></tr>
+                            <tr mat-row *matRowDef="let row; columns: ['no', 'name', 'unis', 'actions'];"></tr>
+                        </table>
+                    </div>
+                </div>
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+</div>
