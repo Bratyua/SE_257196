@@ -19,6 +19,13 @@ class TestTrafficLight(unittest.TestCase):
         
         self.assertEqual(controller.ns_light, "Red")
         self.assertEqual(controller.ew_light, "Green")
-
+    def test_third_tick_changes_ew_to_yellow(self):
+        controller = TrafficLightController()
+        controller.tick() 
+        controller.tick() 
+        controller.tick() 
+        
+        self.assertEqual(controller.ns_light, "Red")
+        self.assertEqual(controller.ew_light, "Yellow")
 if __name__ == '__main__':
     unittest.main()
